@@ -2,17 +2,18 @@ package es.alex.taller.model.services;
 
 import es.alex.taller.model.entities.Client;
 import es.alex.taller.model.repository.ClientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import javax.management.InstanceNotFoundException;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class WorkshopServiceImplClient implements WorkshopServiceClient {
 
-    @Autowired
-    ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
     @Override
     public Client getClient(String DNI) throws InstanceNotFoundException {

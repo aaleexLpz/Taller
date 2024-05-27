@@ -2,17 +2,18 @@ package es.alex.taller.model.services;
 
 import es.alex.taller.model.entities.Mechanic;
 import es.alex.taller.model.repository.MechanicRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import javax.management.InstanceNotFoundException;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class WorkshopServiceImplMechanic implements WorkshopServiceMechanic {
 
-    @Autowired
-    MechanicRepository mechanicRepository;
+    private final MechanicRepository mechanicRepository;
 
     @Override
     public Mechanic getMechanic(String DNI) throws InstanceNotFoundException {

@@ -1,9 +1,18 @@
 package es.alex.taller.controller.cars;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.management.InstanceNotFoundException;
+
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import es.alex.taller.controller.dtos.car.CarCreateDto;
@@ -12,18 +21,16 @@ import es.alex.taller.controller.dtos.car.CarReadDto;
 import es.alex.taller.controller.dtos.mapper.CarMapper;
 import es.alex.taller.model.entities.Car;
 import es.alex.taller.model.services.WorkshopServiceCar;
+import lombok.RequiredArgsConstructor;
 
-import javax.management.InstanceNotFoundException;
-
-@Controller
+@RestController
+@RequiredArgsConstructor
 @RequestMapping("/car")
 public class CarsController {
 
-    @Autowired
-    private WorkshopServiceCar workshopServiceCar;
+    private final WorkshopServiceCar workshopServiceCar;
 
-    @Autowired
-    private CarMapper carMapper;
+    private final CarMapper carMapper;
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)

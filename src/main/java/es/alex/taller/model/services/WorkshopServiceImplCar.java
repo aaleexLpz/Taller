@@ -1,19 +1,21 @@
 package es.alex.taller.model.services;
 
+import java.util.Optional;
+
+import javax.management.InstanceNotFoundException;
+
+import org.springframework.stereotype.Service;
+
 import es.alex.taller.controller.dtos.car.CarCreateDto;
 import es.alex.taller.model.entities.Car;
 import es.alex.taller.model.repository.CarRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.management.InstanceNotFoundException;
-import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class WorkshopServiceImplCar implements WorkshopServiceCar {
 
-    @Autowired
-    private CarRepository carRepository;
+    private final CarRepository carRepository;
 
     @Override
     public Car createCar(CarCreateDto carCreateDto) {
