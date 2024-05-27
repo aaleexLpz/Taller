@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiénes Somos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding-top: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            overflow-y: auto;
+            background-image: url(images/fondoEmpresa.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .top-bar {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .top-bar h2 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .dropdown-menu {
+            margin-right: 10px; /* Espacio entre el botón del menú y el margen derecho */
+        }
+
+        .logout-btn {
+            margin-top: 0;
+        }
+
+        .menu-button {
+            position: fixed;
+            top: 70px; /* Ajustar según el tamaño de la barra azul */
+            right: 10px;
+            z-index: 1000; /* Asegura que esté por encima del contenido */
+        }
+
+        .mode-toggle-button {
+            position: fixed;
+            top: 70px; /* Ajustar según el tamaño de la barra azul */
+            left: 10px;
+            z-index: 1000; /* Asegura que esté por encima del contenido */
+        }
+
+        .container {
+            width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Agregado sombra */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .left-bar {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: flex-start;
+        }
+
+        .right-bar {
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 120px; /* Margen inferior para evitar superposición con el footer */
+        }
+
+        .welcome-message {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .section {
+            margin-top: 20px;
+        }
+
+        .left-bar a {
+            display: block;
+            margin-bottom: 10px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .left-bar a:hover {
+            text-decoration: underline;
+        }
+
+        body.modo-oscuro {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .top-bar.modo-oscuro {
+            background-color: #555;
+        }
+
+        .container.modo-oscuro {
+            background-color: #444;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            color: #000;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+        }
+
+        .section h2 {
+            color: #000000;
+        }
+
+        footer {
+            background-color: #555;
+            color: #fff;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            z-index: 9999;
+        }
+
+        .car-brands {
+            opacity: 0; /* Inicialmente oculto */
+            transition: opacity 1s ease; /* Transición suave */
+        }
+
+        .show-brands {
+            opacity: 1; /* Mostrar gradualmente */
+        }
+
+        /* Estilo para el carrusel */
+        .carousel {
+            width: 40%;
+            height: 100px; /* Altura del carrusel */
+            padding-top: 30px;
+        }
+
+        /* Estilo para las imágenes dentro del carrusel */
+        .carousel-item img {
+            width: 100%; /* Ancho ocupando toda la pantalla */
+            height: 400px; /* Altura fija */
+            object-fit: cover; /* Cubrir completamente el contenedor */
+        }
+
+        /* Añadido estilo para la animación de los números */
+        .counter_item {
+            opacity: 0; /* Inicialmente oculto */
+            transition: opacity 1s ease; /* Transición suave */
+            margin-top: 20px; /* Espacio entre cada número */
+        }
+
+        .counter_item.active {
+            opacity: 1; /* Mostrar gradualmente */
+        }
+
+        .contenedorNumeros {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            padding: 10px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .numero {
+            height: 100px;
+            width: 100px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #007BFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #007BFF;
+            border-radius: 50%;
+            margin: 0 10px; /* Espacio entre los números */
+            transition: opacity 1s ease; /* Transición suave */
+        }
+
+        .contenedorNumero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 10px;
+        }
+
+        .contenedorNumero h4 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .section-title-area {
+            padding-bottom: 30px;
+            text-align: center;
+        }
+
+        .word-container {
+            font-family: 'Roboto', sans-serif;
+            font-size: 72px;
+            font-weight: bold;
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+            height: 100px;
+            width: auto;
+            background-color: transparent; /* Eliminar fondo */
+            padding: 10px 20px;
+            margin-top: 100px;
+            margin-bottom: 100px;
+            border-radius: 10px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .static-word {
+            color: #ffffff; /* Color blanco para "Somos" */
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; /* Borde negro */
+        }
+
+        .word {
+            position: relative;
+            transition: transform 1s ease;
+            margin-left: 10px;
+            color: #007BFF; /* Color azul para las palabras animadas */
+        }
+
+        .word.hide {
+            transform: rotateY(90deg);
+        }
+
+        .word.show {
+            transform: rotateY(0deg);
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <h2>Talleres López</h2>
+    <div class="dropdown-menu animated" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="index.html">Inicio</a>
+        <a class="dropdown-item" href="contacto.html">Contacto</a>
+        <a class="dropdown-item" href="productos.html">Productos</a>
+    </div>
+    <a th:href="@{/logout}" class="btn btn-danger logout-btn">Cerrar Sesión</a>
+</div>
+
+<button id="modoOscuroBtn" class="btn btn-dark mode-toggle-button">Modo Oscuro</button>
+
+<button class="btn btn-primary menu-button dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="bi bi-list"></i> Menú
+</button>
+
+<div class="word-container">
+    <div class="static-word">Somos</div>
+    <div class="word show">Especialistas</div>
+</div>
+
+<div class="right-bar">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section">
+                        <h2>Sobre Nosotros</h2>
+                        <p>Somos una empresa comprometida con la excelencia y la satisfacción del cliente. Nuestro equipo de expertos se dedica a ofrecer los mejores servicios de reparación y mantenimiento para su vehículo.</p>
+                    </div>
+                    <div class="section">
+                        <h2>Nuestra Misión</h2>
+                        <p>Nuestra misión es proporcionar servicios de alta calidad que superen las expectativas de nuestros clientes, garantizando siempre la seguridad y eficiencia de sus vehículos.</p>
+                    </div>
+                    <div class="section">
+                        <h2>Nuestro Equipo</h2>
+                        <p>Contamos con un equipo de profesionales altamente capacitados y con años de experiencia en el sector automotriz.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('modoOscuroBtn').addEventListener('click', () => {
+        document.body.classList.toggle('modo-oscuro');
+        document.querySelector('.top-bar').classList.toggle('modo-oscuro');
+        document.querySelector('.container').classList.toggle('modo-oscuro');
+    });
+</script>
+
+<footer>
+    <p>&copy; 2024 Talleres López. Todos los derechos reservados.</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    function animateNumbers(id, endValue, suffix = '') {
+        const element = document.getElementById(id);
+        let currentValue = 0;
+        const increment = Math.ceil(endValue / 100);
+        
+        const interval = setInterval(() => {
+            currentValue += increment;
+            if (currentValue > endValue) {
+                currentValue = endValue;
+                clearInterval(interval);
+            }
+            element.textContent = currentValue + suffix;
+        }, 20);
+    }
+
+    function handleScroll() {
+        const contenedorNumeros = document.querySelector('.contenedorNumeros');
+        const rect = contenedorNumeros.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom >= 0) {
+            animateNumbers('numero', 20);
+            animateNumbers('numero2', 100, '%');
+            animateNumbers('numero3', 99, '%');
+            window.removeEventListener('scroll', handleScroll);
+        }
+    }
+
+    window.addEventListener('scroll', handleScroll);
+
+    const words = ["Especialistas", "Profesionales", "Expertos"];
+    let currentIndex = 0;
+    const wordElement = document.querySelector('.word');
+
+    function changeWord() {
+        wordElement.classList.remove('show');
+        wordElement.classList.add('hide');
+        setTimeout(() => {
+            currentIndex = (currentIndex + 1) % words.length;
+            wordElement.textContent = words[currentIndex];
+            wordElement.classList.remove('hide');
+            wordElement.classList.add('show');
+        }, 1000); // Tiempo de giro
+    }
+
+    setInterval(changeWord, 3000); // Cambia cada 3 segundos
+</script>
+
+<div class="container">
+    <div class="section-title-area">
+        <h3 class="section-subtitle">Algunos de</h3>
+        <h2 class="section-title">Nuestros números</h2>
+        <div class="section-desc"></div>
+    </div>
+    <div class="contenedorNumeros">
+        <div class="contenedorNumero">
+            <div class="numero" id="numero">00</div>
+            <h4>Años de experiencia</h4>
+        </div>
+        <div class="contenedorNumero">
+            <div class="numero" id="numero2">00</div>
+            <h4>Clientes satisfechos</h4>
+        </div>
+        <div class="contenedorNumero">
+            <div class="numero" id="numero3">00</div>
+            <h4>Reparaciones exitosas</h4>
+        </div>
+    </div>
+</div>
+
+<!-- Carrusel -->
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100" src="images/peugeot.jpeg" alt="First slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="images/toyota.jpg" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="images/renault2.jpg" alt="Third slide">
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

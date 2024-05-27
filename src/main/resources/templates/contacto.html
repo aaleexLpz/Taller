@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Contacto</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            background-image: url(images/contacto.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .top-bar {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .top-bar h2 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .dropdown-menu {
+            margin-right: 10px;
+        }
+
+        .logout-btn {
+            margin-top: 0;
+        }
+
+        .menu-button {
+            position: fixed;
+            top: 70px;
+            right: 10px;
+            z-index: 1000;
+        }
+
+        .mode-toggle-button {
+            position: fixed;
+            top: 70px;
+            left: 10px;
+            z-index: 1000;
+        }
+
+        .container {
+            position: relative;
+            top: 25px;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            height: 150px;
+        }
+
+        .form-group button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+
+        body.modo-oscuro {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .top-bar.modo-oscuro {
+            background-color: #555;
+        }
+
+        .container.modo-oscuro {
+            background-color: #444;
+        }
+
+        footer {
+            background-color: #555;
+            color: #fff;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+        }
+
+    </style>
+</head>
+<body>
+<div class="top-bar">
+    <h2>Talleres López</h2>
+    <div class="dropdown-menu animated" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="index.html">Inicio</a>
+        <a class="dropdown-item" href="quienesSomos.html">Quienes somos?</a>
+        <a class="dropdown-item" href="productos.html">Productos</a>
+    </div>
+    <button class="btn btn-primary menu-button dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="bi bi-list"></i> Menú
+    </button>
+    <a th:href="@{/logout}" class="btn btn-danger logout-btn">Cerrar Sesión</a>
+    <button id="modoOscuroBtn" class="btn btn-dark mode-toggle-button">Modo Oscuro</button>
+
+</div>
+<div class="container">
+    <h2>Contacto</h2>
+    <form action="#" method="post">
+        <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Primer Apellido:</label>
+            <input type="text" id="lastName" name="lastName" required>
+        </div>
+        <div class="form-group">
+            <label for="lastName2">Segundo Apellido:</label>
+            <input type="text" id="lastName2" name="lastName2" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Mensaje:</label>
+            <textarea id="message" name="message" required></textarea>
+        </div>
+        <div class="form-group">
+            <button type="submit">Enviar</button>
+        </div>
+    </form>
+</div>
+
+<footer>
+    <p>&copy; 2024 Talleres López. Todos los derechos reservados.</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    function toggleModoOscuro() {
+        const body = document.body;
+        const topBar = document.querySelector('.top-bar');
+        const container = document.querySelector('.container');
+
+        if (body.classList.contains('modo-oscuro')) {
+            // Cambiar a modo claro
+            body.classList.remove('modo-oscuro');
+            topBar.classList.remove('modo-oscuro');
+            container.classList.remove('modo-oscuro');
+            document.getElementById('modoOscuroBtn').textContent = 'Modo Oscuro';
+        } else {
+            // Cambiar a modo oscuro
+            body.classList.add('modo-oscuro');
+            topBar.classList.add('modo-oscuro');
+            container.classList.add('modo-oscuro');
+            document.getElementById('modoOscuroBtn').textContent = 'Modo Claro';
+        }
+    }
+
+    document.getElementById('modoOscuroBtn').addEventListener('click', toggleModoOscuro);
+</script>
+
+</body>
+</html>

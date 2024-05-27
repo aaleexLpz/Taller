@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Bienvenido al Sistema</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -15,6 +15,10 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh; 
+            background-image: url(images/fondoTaller.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         .top-bar {
@@ -36,8 +40,26 @@
             font-size: 28px;
         }
 
+        .dropdown-menu {
+            margin-right: 10px; /* Espacio entre el botón del menú y el margen derecho */
+        }
+
         .logout-btn {
             margin-top: 0;
+        }
+
+        .menu-button {
+            position: fixed;
+            top: 70px; /* Ajustar según el tamaño de la barra azul */
+            right: 10px;
+            z-index: 1000; /* Asegura que esté por encima del contenido */
+        }
+
+        .mode-toggle-button {
+            position: fixed;
+            top: 70px; /* Ajustar según el tamaño de la barra azul */
+            left: 10px;
+            z-index: 1000; /* Asegura que esté por encima del contenido */
         }
 
         .container {
@@ -121,7 +143,7 @@
         }
 
         footer {
-            background-color: #333;
+            background-color: #555;
             color: #fff;
             width: 100%;
             text-align: center;
@@ -129,27 +151,34 @@
             position: fixed;
             bottom: 0;
         }
+
+        /* #modoOscuroBtn.modo-oscuro {
+            background-color: white;
+            color: black;
+        } */
     </style>
 </head>
 <body>
 <div class="top-bar">
     <h2>Talleres López</h2>
-    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="bi bi-list"></i> Menú
-    </button>
     <div class="dropdown-menu animated" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Opción 1</a>
-        <a class="dropdown-item" href="#">Opción 2</a>
-        <a class="dropdown-item" href="#">Opción 3</a>
+        <a class="dropdown-item" href="quienesSomos.html">Quienes somos?</a>
+        <a class="dropdown-item" href="contacto.html">Contacto</a>
+        <a class="dropdown-item" href="productos.html">Productos</a>
     </div>
-    <button id="modoOscuroBtn" class="btn btn-dark">Activar Modo Oscuro</button>
     <a th:href="@{/logout}" class="btn btn-danger logout-btn">Cerrar Sesión</a>
 </div>
+
+<button id="modoOscuroBtn" class="btn btn-dark mode-toggle-button">Modo Oscuro</button>
+
+<button class="btn btn-primary menu-button dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="bi bi-list"></i> Menú
+</button>
 
 <div class="container">
     <div class="left-bar">
         <h3>Enlaces de Interés</h3>
-        <a href="#">Honda denuncia...</a>
+        <a href="https://www.europapress.es/motor/sector-00644/noticia-juzgado-barcelona-admite-tramite-demanda-colectiva-ocu-contra-honda-volvo-20240131111015.html">Honda denuncia...</a>
         <a href="#">Los nuevos recambios llegarán en...</a>
         <a href="#">Un nuevo taller abre sus puertas</a>
     </div>
@@ -203,7 +232,7 @@
             topBar.classList.remove('modo-oscuro');
             container.classList.remove('modo-oscuro');
             tablaClientes.classList.remove('modo-oscuro');
-            document.getElementById('modoOscuroBtn').textContent = 'Activar Modo Oscuro';
+            document.getElementById('modoOscuroBtn').textContent = 'Modo Oscuro';
         } else {
             // Cambiar a modo oscuro
             body.classList.add('modo-oscuro');
