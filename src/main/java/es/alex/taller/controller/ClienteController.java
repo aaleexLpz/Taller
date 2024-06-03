@@ -1,0 +1,46 @@
+package es.alex.taller.controller;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import es.alex.taller.dto.cliente.ClienteOutputDto;
+import es.alex.taller.dto.cliente.ClienteOutputMinDto;
+import es.alex.taller.service.IClienteService;
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/clientes")
+public class ClienteController {
+
+    private final IClienteService clienteService;
+    
+    @GetMapping
+    public ResponseEntity<List<ClienteOutputMinDto>> listadoClientes() {
+    	ResponseEntity<List<ClienteOutputMinDto>> response;
+        try {
+            response = ResponseEntity.ok(clienteService.listadoClientes());
+        } catch (Exception e) {
+            response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        return response;
+    }
+    
+    @GetMapping("/info")
+    public ResponseEntity<ClienteOutputDto> infoCliente(@RequestParam("codCliente") Integer codCliente) {
+    	ResponseEntity<ClienteOutputDto> response;
+        try {
+            response = ResponseEntity.ok(clienteService.infoCliente(codCliente));
+        } catch (Exception e) {
+            response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        return response;
+    }
+
+}

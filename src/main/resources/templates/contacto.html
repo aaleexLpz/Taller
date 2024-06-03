@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             background-color: #f8f9fa;
-            background-image: url(images/contacto.jpg);
+            background-image: url('/images/contacto.jpg');
             background-repeat: no-repeat;
             background-size: cover;
             background-attachment: fixed;
@@ -139,9 +139,9 @@
 <div class="top-bar">
     <h2>Talleres López</h2>
     <div class="dropdown-menu animated" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="index.html">Inicio</a>
-        <a class="dropdown-item" href="quienesSomos.html">Quienes somos?</a>
-        <a class="dropdown-item" href="productos.html">Productos</a>
+        <a class="dropdown-item" th:href="@{/index}">Inicio</a>
+        <a class="dropdown-item" th:href="@{/quienesSomos}">Quienes somos?</a>
+        <a class="dropdown-item" th:href="@{/productos}">Productos</a>
     </div>
     <button class="btn btn-primary menu-button dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="bi bi-list"></i> Menú

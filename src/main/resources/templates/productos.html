@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             background-color: #f8f9fa;
-            background-image: url(images/tiendaTaller.jpg);
+            background-image: url('/images/tiendaTaller.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -130,9 +130,9 @@
     <div class="top-bar">
         <h2>Talleres López</h2>
         <div class="dropdown-menu animated" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="index.html">Inicio</a>
-            <a class="dropdown-item" href="quienesSomos.html">Quienes somos?</a>
-            <a class="dropdown-item" href="contacto.html">Contacto</a>
+            <a class="dropdown-item" th:href="@{/index}">Inicio</a>
+            <a class="dropdown-item" th:href="@{/quienesSomos}">Quienes somos?</a>
+            <a class="dropdown-item" th:href="@{/contacto}">Contacto</a>
         </div>
         <button id="modoOscuroBtn" class="mode-toggle-button">Modo Oscuro</button>
         <a th:href="@{/logout}" class="btn btn-danger logout-btn">Cerrar Sesión</a>
