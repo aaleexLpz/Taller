@@ -1,5 +1,8 @@
 package es.alex.taller.dto.coche;
 
+import java.util.List;
+
+import es.alex.taller.dto.intervencion.IntervencionOutputMinDto;
 import lombok.Data;
 
 @Data
@@ -11,5 +14,6 @@ public class CocheOutputDto {
 	private String color;
 	private String matricula;
 	private Integer codCliente;
+	private List<IntervencionOutputMinDto> intervenciones;
 	
 }

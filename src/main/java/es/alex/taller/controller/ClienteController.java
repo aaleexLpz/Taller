@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,31 +17,41 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/clientes")
 public class ClienteController {
 
     private final IClienteService clienteService;
     
-    @GetMapping
-    public ResponseEntity<List<ClienteOutputMinDto>> listadoClientes() {
-    	ResponseEntity<List<ClienteOutputMinDto>> response;
+    @GetMapping("/api/clientes")
+    public ResponseEntity<List<ClienteOutputDto>> listadoClientes() {
         try {
-            response = ResponseEntity.ok(clienteService.listadoClientes());
+            List<ClienteOutputDto> clientes = clienteService.listadoClientes();
+            return ResponseEntity.ok(clientes);
         } catch (Exception e) {
-            response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        return response;
     }
+
     
-    @GetMapping("/info")
+    @GetMapping("/api/clientes/info")
     public ResponseEntity<ClienteOutputDto> infoCliente(@RequestParam("codCliente") Integer codCliente) {
     	ResponseEntity<ClienteOutputDto> response;
         try {
-            response = ResponseEntity.ok(clienteService.infoCliente(codCliente));
+            response = ResponseEntity.ok(clienteService.infoClienteId(codCliente));
         } catch (Exception e) {
             response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
         return response;
     }
 
+//    @GetMapping("/clientes-page")
+//    public String mostrarClientes(Model model) {
+//    	try {
+//    		List<ClienteOutputMinDto> clientes = clienteService.listadoClientes();
+//    		model.addAttribute("clientes", clientes);
+//    		return "clientes";
+//    	} catch (Exception e) {
+//    		return null;
+//    	}
+//    }
+    
 }

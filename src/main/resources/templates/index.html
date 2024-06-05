@@ -152,10 +152,21 @@
             bottom: 0;
         }
 
-          #modoOscuroBtn.modo-oscuro {
-             background-color: white; 
-             color: black; 
+         #modoOscuroBtn.modo-oscuro {
+            background-color: white; 
+            color: black; 
         } 
+        
+        #botonClientes{
+        	margin-top: 30px;
+        }
+        
+        #clientes{
+        	padding-top: 10px;
+        	padding-bottom: 10px;
+        	padding-left: 40px;
+        	padding-right: 40px;
+        }
     </style>
 </head>
 <body>
@@ -178,7 +189,7 @@
 <div class="container">
     <div class="left-bar">
         <h3>Enlaces de Interés</h3>
-        <a href="https://www.europapress.es/motor/sector-00644/noticia-juzgado-barcelona-admite-tramite-demanda-colectiva-ocu-contra-honda-volvo-20240131111015.html">Honda denuncia...</a>
+        <a href="https://www.europapress.es/motor/sector-00644/noticia-juzgado-barcelona-admite-tramite-demanda-colectiva-ocu-contra-honda-volvo-20240131111015.html">Juzgado de Barcelona admite denuncia a Honda</a>
         <a href="#">Los nuevos recambios llegarán en...</a>
         <a href="#">Un nuevo taller abre sus puertas</a>
     </div>
@@ -200,7 +211,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                    <tr th:each="cliente : ${clientes}">
+                                    	<td th:text="${clientes.nombre}">
+                                    	<td th:text="${clientes.apellido1}">
+                                    	<td th:text="${clientes.apellido2}">
+                                    	<td th:text="${clientes.telefono}">
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -209,6 +225,10 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="d-grid gap-2" id="botonClientes">
+  <a th:href="@{/clientes-page}" class="btn btn-success btn-lg" id="clientes">Clientes</a>
 </div>
 
 <footer>

@@ -7,8 +7,8 @@ import es.alex.taller.dto.cliente.ClienteOutputMinDto;
 
 public interface IClienteService {
 
-	List<ClienteOutputMinDto> listadoClientes();
+	List<ClienteOutputDto> listadoClientes();
 	
-	ClienteOutputDto infoCliente(Integer codCliente);
+	ClienteOutputDto infoClienteId(Integer codCliente);
 	
 }
