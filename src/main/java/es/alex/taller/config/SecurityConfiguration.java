@@ -40,10 +40,19 @@ public class SecurityConfiguration {
 //	    return http.build();
 //	}
 	
+//	@Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        return http.authorizeHttpRequests(request -> request.anyRequest()
+//                .authenticated())
+//            .httpBasic(Customizer.withDefaults())
+//            .build();
+//    }
+	
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests(request -> request.anyRequest()
-                .authenticated())
+        return http.authorizeHttpRequests(request -> request
+                .requestMatchers(HttpMethod.PUT, "/clientes/**").hasRole("USER") // Permitir solo a los usuarios con rol ADMIN
+                .anyRequest().authenticated())
             .httpBasic(Customizer.withDefaults())
             .build();
     }

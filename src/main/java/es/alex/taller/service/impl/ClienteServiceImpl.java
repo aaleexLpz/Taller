@@ -21,7 +21,7 @@ public class ClienteServiceImpl implements IClienteService{
 	private final ICocheRepo cocheRepo;
 	
 	@Override
-	public List<ClienteOutputDto> listadoClientes(){
+	public List<ClienteOutputMinDto> listadoClientes(){
 		return clienteRepo.listadoClientes();
 	}
 
@@ -31,6 +31,11 @@ public class ClienteServiceImpl implements IClienteService{
 		List<CocheOutputMinDto> coches = cocheRepo.listadoCochesPorCliente(codCliente);
 		clienteOutput.setCoches(coches);
 		return clienteOutput;
+	}
+
+	@Override
+	public void actualizarClientes(ClienteOutputDto clientes) {
+		clienteRepo.actualizarCliente(clientes); 
 	}
 
 }

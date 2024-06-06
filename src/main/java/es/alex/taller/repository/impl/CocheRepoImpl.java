@@ -22,7 +22,7 @@ public class CocheRepoImpl implements ICocheRepo{
 	@Override
     public List<CocheOutputMinDto> listadoCochesPorCliente(Integer codCliente) {
         final String COCHES_POR_CLIENTE_QUERY = "SELECT c.id as id, c.marca as marca, c.modelo as modelo "
-                                              + "FROM coche c"
+                                              + "FROM coche c "
                                               + "WHERE codCliente = :codCliente";
         MapSqlParameterSource params = new MapSqlParameterSource()
                 .addValue("codCliente", codCliente);
