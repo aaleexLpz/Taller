@@ -6,4 +6,5 @@ public interface ICocheService {
 
 	CocheOutputDto detallesCoche(Integer codCoche);
 	
+	public void actualizarCoches(CocheOutputDto coches);
 }

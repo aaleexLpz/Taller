@@ -12,4 +12,6 @@ public interface IClienteService {
 	ClienteOutputDto infoClienteId(Integer codCliente);
 	
 	public void actualizarClientes(ClienteOutputDto clientes);
+	
+	public void insertarClientes(ClienteOutputDto clientes);
 }

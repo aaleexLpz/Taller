@@ -2,6 +2,7 @@ package es.alex.taller.repository.impl;
 
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -34,7 +35,11 @@ public class ClienteRepoImpl implements IClienteRepo {
   								   + "WHERE c.id = :codCliente";
 		MapSqlParameterSource params = new MapSqlParameterSource()
 				.addValue("codCliente", codCliente);
-		return nameJdbc.queryForObject(CLIENTE_QUERY, params, new BeanPropertyRowMapper<>(ClienteOutputDto.class));
+		try {
+	        return nameJdbc.queryForObject(CLIENTE_QUERY, params, new BeanPropertyRowMapper<>(ClienteOutputDto.class));
+	    } catch (EmptyResultDataAccessException e) {
+	        return null;
+	    }
 	}
 
 	@Override
@@ -50,5 +55,17 @@ public class ClienteRepoImpl implements IClienteRepo {
 				.addValue("dni", clientes.getDni());
         return nameJdbc.update(CLIENTES_UPDATE, params);
     }
+
+	@Override
+	public int insertarCliente(ClienteOutputDto cliente) {
+		String CLIENTE_INSERT = "INSERT INTO cliente (nombre, apellido1, apellido2, telefono, dni) VALUES (:nombre, :apellido1, :apellido2, :telefono, :dni)";
+		MapSqlParameterSource params = new MapSqlParameterSource()
+				.addValue("nombre", cliente.getNombre())
+                .addValue("apellido1", cliente.getApellido1())
+                .addValue("apellido2", cliente.getApellido2())
+                .addValue("telefono", cliente.getTelefono())
+                .addValue("dni", cliente.getDni());
+		return nameJdbc.update(CLIENTE_INSERT, params);
+	}
 
 }

@@ -144,26 +144,26 @@
 			    <div class="card">
 			        <div class="card-body">
 			            <h2>Datos del Cliente</h2>
-			            <form id="clienteForm" action="#" th:action="@{/guardar-cliente}" th:object="${clientes}" method="post">
+			            <form id="clienteForm" action="#" th:action="@{/guardar-cliente-nuevo}" th:object="${clientes}" method="post">
 			                <div class="form-group">
 			                    <label for="nombre">Nombre</label>
-			                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${clientes.nombre}" th:field="*{nombre}" placeholder="Introduce tu nombre">
+			                    <input type="text" class="form-control" id="nombre" name="nombre" th:field="*{nombre}" placeholder="Introduce tu nombre">
 			                </div>
 			                <div class="form-group">
 			                    <label for="apellido1">Primer Apellido</label>
-			                    <input type="text" class="form-control" id="apellido1" name="apellido1" th:value="${clientes.apellido1}" th:field="*{apellido1}" placeholder="Introduce tu primer apellido">
+			                    <input type="text" class="form-control" id="apellido1" name="apellido1" th:field="*{apellido1}" placeholder="Introduce tu primer apellido">
 			                </div>
 			                <div class="form-group">
 			                    <label for="apellido2">Segundo Apellido</label>
-			                    <input type="text" class="form-control" id="apellido2" name="apellido2" th:value="${clientes.apellido2}" th:field="*{apellido2}" placeholder="Introduce tu segundo apellido">
+			                    <input type="text" class="form-control" id="apellido2" name="apellido2" th:field="*{apellido2}" placeholder="Introduce tu segundo apellido">
 			                </div>
 			                <div class="form-group">
 			                    <label for="telefono">Teléfono</label>
-			                    <input type="tel" class="form-control" id="telefono" name="telefono" th:value="${clientes.telefono}" th:field="*{telefono}" placeholder="Introduce tu teléfono">
+			                    <input type="tel" class="form-control" id="telefono" name="telefono" th:field="*{telefono}" placeholder="Introduce tu teléfono">
 			                </div>
 			                <div class="form-group">
 			                    <label for="dni">DNI</label>
-			                    <input type="text" class="form-control" id="dni" name="dni" th:value="${clientes.dni}" th:field="*{dni}" placeholder="Introduce tu DNI">
+			                    <input type="text" class="form-control" id="dni" name="dni" th:field="*{dni}" placeholder="Introduce tu DNI">
 			                </div>
 			                <button type="submit" class="btn btn-primary">Guardar</button>
 			                <div class="form-group">
@@ -171,27 +171,6 @@
 			            	    <input type="hidden" id="id" class="form-control" name="id" th:value="${clientes.id}" th:field="*{id}" placeholder="Introduce el id">
 		            	    </div>
 			            </form>
-			        </div>
-			    </div>
-			</div>
-            <div class="col-md-6">
-			    <div class="card">
-			        <div class="card-body">
-			            <h2>Datos del Coche</h2>
-			            <table class="table">
-			                <thead>
-			                    <tr>
-			                        <th>Marca</th>
-			                        <th>Modelo</th>
-			                    </tr>
-			                </thead>
-			               <tbody>
-							    <tr th:each="coche : ${clientes.coches}">
-							        <td th:text="${coche.marca}"></td>
-							        <td th:text="${coche.modelo}"></td>
-							    </tr>
-							</tbody>
-			            </table>
 			        </div>
 			    </div>
 			</div>

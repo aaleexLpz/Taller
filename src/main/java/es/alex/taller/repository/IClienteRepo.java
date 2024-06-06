@@ -15,4 +15,6 @@ public interface IClienteRepo {
 	ClienteOutputDto infoClienteId(Integer codCliente);
 	
 	public int actualizarCliente(ClienteOutputDto clientes);
+	
+	public int insertarCliente(ClienteOutputDto cliente);
 }

@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import es.alex.taller.dto.cliente.ClienteOutputDto;
 import es.alex.taller.dto.cliente.ClienteOutputMinDto;
+import es.alex.taller.dto.coche.CocheOutputDto;
 import es.alex.taller.service.IClienteService;
 import es.alex.taller.service.ICocheService;
 import lombok.RequiredArgsConstructor;
@@ -55,7 +55,8 @@ public class PageController {
 	}
 	
 	@GetMapping("/nuevo-cliente")
-	public String mostrarNuevoCliente() {
+	public String mostrarNuevoCliente(Model model) {
+		model.addAttribute("clientes", new ClienteOutputDto());
         return "nuevoCliente";
     }
 	
@@ -74,6 +75,32 @@ public class PageController {
         return "editarCliente";
     }
 	
+	@PostMapping("/guardar-cliente-nuevo")
+	public String guardarCocheNuevo(@ModelAttribute ClienteOutputDto cliente, Model model) {
+		clienteService.insertarClientes(cliente);
+		model.addAttribute("clientes", cliente);
+		return "editarCliente";
+	}
 	
+	@GetMapping("/nuevo-coche")
+	public String mostrarNuevoCoche(Model model) {
+		model.addAttribute("coches", new CocheOutputDto());
+        return "nuevoCoche";
+    }
+	
+	@GetMapping("/coche/{id}")
+	public String verDetallerCoche(@PathVariable Integer id, Model model) {
+		CocheOutputDto coches = cocheService.detallesCoche(id);
+		model.addAttribute("coches", coches);
+		return "editarCoche";
+	}
+	
+	@PostMapping("/guardar-coche")
+	public String guardarCoche(@ModelAttribute CocheOutputDto coches, Model model) {
+		cocheService.actualizarCoches(coches);
+		CocheOutputDto cocheAct = cocheService.detallesCoche(coches.getId());
+        model.addAttribute("coches", cocheAct);
+        return "editarCoche";
+    }
 	
 }

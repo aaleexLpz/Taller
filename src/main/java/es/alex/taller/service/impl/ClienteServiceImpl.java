@@ -38,4 +38,10 @@ public class ClienteServiceImpl implements IClienteService{
 		clienteRepo.actualizarCliente(clientes); 
 	}
 
+	@Override
+	public void insertarClientes(ClienteOutputDto clientes) {
+		clienteRepo.insertarCliente(clientes);
+		
+	}
+
 }

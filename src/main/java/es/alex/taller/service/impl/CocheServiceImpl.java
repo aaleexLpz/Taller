@@ -26,4 +26,9 @@ public class CocheServiceImpl implements ICocheService {
 		return cocheOutput;
 	}
 
+	@Override
+	public void actualizarCoches(CocheOutputDto coches) {
+		cocheRepo.actualizarCoche(coches);
+	}
+
 }
