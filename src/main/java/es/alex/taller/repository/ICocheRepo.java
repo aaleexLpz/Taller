@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import es.alex.taller.dto.coche.CocheOutputDto;
 import es.alex.taller.dto.coche.CocheOutputMinDto;
+import es.alex.taller.dto.intervencion.IntervencionOutputMinDto;
 
 @Repository
 public interface ICocheRepo {
@@ -17,4 +18,5 @@ public interface ICocheRepo {
 	
 	int actualizarCoche(@ModelAttribute CocheOutputDto coches);
 	
+	List<IntervencionOutputMinDto> listadoIntervencionPorCoche(Integer codCoche);
 }

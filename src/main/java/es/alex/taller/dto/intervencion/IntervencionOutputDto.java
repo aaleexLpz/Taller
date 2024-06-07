@@ -11,5 +11,4 @@ public class IntervencionOutputDto {
 	private Integer kilometros;
 	private Integer codCoche;
 	private Integer precio;
-	
 }

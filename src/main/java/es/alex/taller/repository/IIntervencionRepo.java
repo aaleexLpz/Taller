@@ -12,6 +12,6 @@ public interface IIntervencionRepo {
 
 	List<IntervencionOutputMinDto> listaMinIntervencion(Integer codCoche);
 	
-	IntervencionOutputDto detalleIntervencion(Integer codCoche);
+	List<IntervencionOutputDto> listaIntervenciones(Integer codCoche);
 	
 }

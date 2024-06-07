@@ -187,8 +187,8 @@
 			                </thead>
 			               <tbody>
 							    <tr th:each="coche : ${clientes.coches}">
-							        <td th:text="${coche.marca}"></td>
-							        <td th:text="${coche.modelo}"></td>
+							        <td><a th:href="@{'/coche/' + ${coche.id}}" th:text="${coche.marca}"></a></td>
+							        <td><a th:href="@{'/coche/' + ${coche.id}}" th:text="${coche.modelo}"></a></td>
 							    </tr>
 							</tbody>
 			            </table>

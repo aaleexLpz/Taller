@@ -12,8 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import es.alex.taller.dto.cliente.ClienteOutputDto;
 import es.alex.taller.dto.cliente.ClienteOutputMinDto;
 import es.alex.taller.dto.coche.CocheOutputDto;
+import es.alex.taller.dto.coche.CocheOutputMinDto;
+import es.alex.taller.dto.intervencion.IntervencionOutputDto;
+import es.alex.taller.dto.intervencion.IntervencionOutputMinDto;
+import es.alex.taller.dto.intervencion.IntervencionesContainer;
 import es.alex.taller.service.IClienteService;
 import es.alex.taller.service.ICocheService;
+import es.alex.taller.service.IIntervencionService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -22,6 +27,7 @@ public class PageController {
 
 	private final IClienteService clienteService;
 	private final ICocheService cocheService;
+	private final IIntervencionService intervencionService;
 	
 	@GetMapping("/quienesSomos")
 	public String quienesSomos() {
@@ -63,7 +69,9 @@ public class PageController {
 	@GetMapping("/cliente/{id}")
     public String verDetallesCliente(@PathVariable Integer id, Model model) {
         ClienteOutputDto clientes = clienteService.infoClienteId(id);
+        List<CocheOutputMinDto> coches = cocheService.listadoCochesPorCliente(id);
         model.addAttribute("clientes", clientes);
+        model.addAttribute("coches", coches);
         return "editarCliente";
     }
 	
@@ -89,18 +97,32 @@ public class PageController {
     }
 	
 	@GetMapping("/coche/{id}")
-	public String verDetallerCoche(@PathVariable Integer id, Model model) {
-		CocheOutputDto coches = cocheService.detallesCoche(id);
+	public String verDetallesCoche(@PathVariable Integer id, Model model) {
+		CocheOutputDto coches = cocheService.infoCocheId(id);
+		List<IntervencionOutputMinDto> intervenciones = cocheService.listadoIntervencionPorCoche(id);
 		model.addAttribute("coches", coches);
+		model.addAttribute("intervenciones", intervenciones);
 		return "editarCoche";
 	}
 	
 	@PostMapping("/guardar-coche")
 	public String guardarCoche(@ModelAttribute CocheOutputDto coches, Model model) {
 		cocheService.actualizarCoches(coches);
-		CocheOutputDto cocheAct = cocheService.detallesCoche(coches.getId());
+		CocheOutputDto cocheAct = cocheService.infoCocheId(coches.getId());
         model.addAttribute("coches", cocheAct);
         return "editarCoche";
     }
+	
+	@GetMapping("/intervencion/{id}")
+	public String verDetallesIntervencion(@PathVariable Integer id, Model model) {
+	    List<IntervencionOutputDto> intervenciones = intervencionService.infoIntervencionId(id);
+	    if (!intervenciones.isEmpty()) {
+	        IntervencionOutputDto intervencion = intervenciones.get(0);
+	        model.addAttribute("intervencion", intervencion);
+	    }
+	    return "verIntervencion";
+	}
+
+
 	
 }

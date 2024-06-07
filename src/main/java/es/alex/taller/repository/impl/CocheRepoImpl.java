@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import es.alex.taller.dto.coche.CocheOutputDto;
 import es.alex.taller.dto.coche.CocheOutputMinDto;
+import es.alex.taller.dto.intervencion.IntervencionOutputMinDto;
 import es.alex.taller.repository.ICocheRepo;
 import lombok.RequiredArgsConstructor;
 
@@ -51,5 +52,15 @@ public class CocheRepoImpl implements ICocheRepo{
 				.addValue("matricula", coches.getMatricula());
         return nameJdbc.update(COCHES_UPDATE, params);
     }
+
+	@Override
+	public List<IntervencionOutputMinDto> listadoIntervencionPorCoche(Integer codCoche) {
+		String INTERVENCION_QUERY = "SELECT i.id as id, i.resumen as resumen, i.texto as texto, i.kilometros as kilometros, i.precio as precio "
+								  + "FROM intervencion i "
+								  + "WHERE i.codCoche  = :codCoche";
+		MapSqlParameterSource params = new MapSqlParameterSource()
+				.addValue("codCoche", codCoche);
+		return nameJdbc.query(INTERVENCION_QUERY, params, new BeanPropertyRowMapper<>(IntervencionOutputMinDto.class));
+	}
 	
 }

@@ -23,14 +23,14 @@ public class ClienteRepoImpl implements IClienteRepo {
 
 	@Override
 	public List<ClienteOutputMinDto> listadoClientes() {
-		final String CLIENTES_QUERY = "SELECT c.id as id, c.nombre as nombre, c.apellido1 as apellido1, c.apellido2 as apellido2 "
+		String CLIENTES_QUERY = "SELECT c.id as id, c.nombre as nombre, c.apellido1 as apellido1, c.apellido2 as apellido2 "
 							  		+ "FROM cliente c";
 		return nameJdbc.query(CLIENTES_QUERY, new BeanPropertyRowMapper<>(ClienteOutputMinDto.class));
 	}
 
 	@Override
 	public ClienteOutputDto infoClienteId(Integer codCliente) {
-		final String CLIENTE_QUERY = "SELECT c.id as id, c.nombre as nombre, c.apellido1 as apellido1, c.apellido2 as apellido2, c.telefono as telefono, c.dni as dni "
+		String CLIENTE_QUERY = "SELECT c.id as id, c.nombre as nombre, c.apellido1 as apellido1, c.apellido2 as apellido2, c.telefono as telefono, c.dni as dni "
 		  						   + "FROM cliente c "
   								   + "WHERE c.id = :codCliente";
 		MapSqlParameterSource params = new MapSqlParameterSource()
