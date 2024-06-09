@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Coche</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding-top: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh; 
+            background-image: url('/images/fondoTaller2.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .top-bar {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .top-bar h2 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .dropdown-menu {
+            margin-right: 10px; 
+        }
+
+        .logout-btn {
+            margin-top: 0;
+        }
+
+        .menu-button {
+            position: fixed;
+            top: 70px; 
+            right: 10px;
+            z-index: 1000; 
+        }
+
+        .mode-toggle-button {
+            position: fixed;
+            top: 70px; 
+            left: 10px;
+            z-index: 1000; 
+        }
+
+        .container {
+            width: calc(100% - 80px); /* Full width minus the margin on both sides */
+            margin: 40px; /* Margin of 40px on both sides */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+            margin-top: 80px;
+            padding: 20px;
+        }
+
+        .card {
+            border: none; /* Remove the border */
+        }
+
+        body.modo-oscuro {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .top-bar.modo-oscuro {
+            background-color: #555;
+        }
+
+        .container.modo-oscuro {
+            background-color: #444;
+        }
+
+        .section h2 {
+            color: #000000;
+        }
+
+        footer {
+            background-color: #555;
+            color: #fff;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+        }
+
+        #modoOscuroBtn.modo-oscuro {
+            background-color: white; 
+            color: black; 
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <h2>Talleres López</h2>
+        <div class="dropdown-menu animated" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" th:href="@{/index}">Inicio</a>
+            <a class="dropdown-item" th:href="@{/quienesSomos}">Quienes somos?</a>
+            <a class="dropdown-item" th:href="@{/contacto}">Contacto</a>
+            <a class="dropdown-item" th:href="@{/productos}">Productos</a>
+        </div>
+        <a th:href="@{/logout}" class="btn btn-danger logout-btn">Cerrar Sesión</a>
+    </div>
+    
+    <button id="modoOscuroBtn" class="btn btn-dark mode-toggle-button">Modo Oscuro</button>
+    
+    <button class="btn btn-primary menu-button dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="bi bi-list"></i> Menú
+    </button>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+			    <div class="card">
+			        <div class="card-body">
+			            <h2>Datos del Coche</h2>
+			            <form id="cocheForm" action="#" th:action="@{/guardar-coche-nuevo}" th:object="${coches}" method="post">
+			                <div class="form-group">
+			                    <label for="marca">Marca</label>
+			                    <input type="text" class="form-control" id="marca" name="marca" th:field="*{marca}" placeholder="Introduce la marca">
+			                </div>
+			                <div class="form-group">
+			                    <label for="modelo">Modelo</label>
+			                    <input type="text" class="form-control" id="modelo" name="modelo" th:field="*{modelo}" placeholder="Introduce el modelo">
+			                </div>
+			                <div class="form-group">
+			                    <label for="color">Color</label>
+			                    <input type="text" class="form-control" id="color" name="color" th:field="*{color}" placeholder="Introduce el color">
+			                </div>
+			                <div class="form-group">
+			                    <label for="matricula">Matrícula</label>
+			                    <input type="text" class="form-control" id="matricula" name="matricula" th:field="*{matricula}" placeholder="Introduce la matrícula">
+			                </div>
+			                <div class="form-group">
+			                    <label for="codCliente">Código del cliente</label>
+			                    <input type="number" class="form-control" id="codCliente" name="codCliente" th:field="*{codCliente}" placeholder="Introduce el código del cliente">
+			                </div>
+			                <button type="submit" class="btn btn-primary">Guardar</button>
+			                <div class="form-group">
+		            			<label type="hidden" for="id"></label>
+			            	    <input type="hidden" id="id" class="form-control" name="id" th:value="${coches.id}" th:field="*{id}" placeholder="Introduce el id">
+		            	    </div>
+			            </form>
+			        </div>
+			    </div>
+			</div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Talleres López. Todos los derechos reservados.</p>
+    </footer>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        function toggleModoOscuro() {
+            const body = document.body;
+            const topBar = document.querySelector('.top-bar');
+            const container = document.querySelector('.container');
+    
+            if (body.classList.contains('modo-oscuro')) {
+                // Cambiar a modo claro
+                body.classList.remove('modo-oscuro');
+                topBar.classList.remove('modo-oscuro');
+                container.classList.remove('modo-oscuro');
+                document.getElementById('modoOscuroBtn').textContent = 'Modo Oscuro';
+            } else {
+                // Cambiar a modo oscuro
+                body.classList.add('modo-oscuro');
+                topBar.classList.add('modo-oscuro');
+                container.classList.add('modo-oscuro');
+                document.getElementById('modoOscuroBtn').textContent = 'Modo Claro';
+            }
+        }
+    
+        document.getElementById('modoOscuroBtn').addEventListener('click', toggleModoOscuro);
+    </script>
+</body>
+</html>

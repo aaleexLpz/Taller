@@ -20,9 +20,9 @@ public class CocheServiceImpl implements ICocheService {
 	private final IIntervencionRepo intervencionRepo;
 	
 	@Override
-	public CocheOutputDto infoCocheId(Integer codCoche) {
-		CocheOutputDto cocheOutput = cocheRepo.detallesCoche(codCoche);
-		List<IntervencionOutputMinDto> intervenciones = cocheRepo.listadoIntervencionPorCoche(codCoche);
+	public CocheOutputDto infoCocheId(Integer codCliente) {
+		CocheOutputDto cocheOutput = cocheRepo.detallesCoche(codCliente);
+		List<IntervencionOutputMinDto> intervenciones = cocheRepo.listadoIntervencionPorCoche(codCliente);
 		cocheOutput.setIntervenciones(intervenciones);
 		return cocheOutput;
 	}
@@ -42,4 +42,9 @@ public class CocheServiceImpl implements ICocheService {
 		return intervencionRepo.listaMinIntervencion(codCoche);
 	}
 
+	@Override
+	public void insertarCoches(CocheOutputDto coches) {
+		cocheRepo.insertarCoche(coches);
+	}
+	
 }

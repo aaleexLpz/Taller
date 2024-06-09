@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.alex.taller.dto.cliente.ClienteOutputDto;
 import es.alex.taller.dto.cliente.ClienteOutputMinDto;
@@ -84,7 +85,7 @@ public class PageController {
     }
 	
 	@PostMapping("/guardar-cliente-nuevo")
-	public String guardarCocheNuevo(@ModelAttribute ClienteOutputDto cliente, Model model) {
+	public String guardarClienteNuevo(@ModelAttribute ClienteOutputDto cliente, Model model) {
 		clienteService.insertarClientes(cliente);
 		model.addAttribute("clientes", cliente);
 		return "editarCliente";
@@ -112,6 +113,14 @@ public class PageController {
         model.addAttribute("coches", cocheAct);
         return "editarCoche";
     }
+	
+	@PostMapping("/guardar-coche-nuevo")
+	public String guardarCocheNuevo(@ModelAttribute CocheOutputDto coche, ClienteOutputDto cliente, Model model) {
+		cocheService.insertarCoches(coche);
+		model.addAttribute("coches", coche);
+		model.addAttribute("clientes", cliente);
+		return "editarCliente";
+	}
 	
 	@GetMapping("/intervencion/{id}")
 	public String verDetallesIntervencion(@PathVariable Integer id, Model model) {

@@ -19,4 +19,6 @@ public interface ICocheRepo {
 	int actualizarCoche(@ModelAttribute CocheOutputDto coches);
 	
 	List<IntervencionOutputMinDto> listadoIntervencionPorCoche(Integer codCoche);
+	
+	int insertarCoche(CocheOutputDto coches);
 }

@@ -54,6 +54,18 @@ public class CocheRepoImpl implements ICocheRepo{
     }
 
 	@Override
+	public int insertarCoche(CocheOutputDto coche) {
+		String COCHE_INSERT = "INSERT INTO coche (marca, modelo, color, matricula, codCliente) VALUES (:marca, :modelo, :color, :matricula, :codCliente)";
+		MapSqlParameterSource params = new MapSqlParameterSource()
+				.addValue("marca", coche.getMarca())
+                .addValue("modelo", coche.getModelo())
+                .addValue("color", coche.getColor())
+                .addValue("matricula", coche.getMatricula())
+                .addValue("codCliente", coche.getCodCliente());
+		return nameJdbc.update(COCHE_INSERT, params);
+	}
+	
+	@Override
 	public List<IntervencionOutputMinDto> listadoIntervencionPorCoche(Integer codCoche) {
 		String INTERVENCION_QUERY = "SELECT i.id as id, i.resumen as resumen, i.texto as texto, i.kilometros as kilometros, i.precio as precio "
 								  + "FROM intervencion i "
@@ -62,5 +74,5 @@ public class CocheRepoImpl implements ICocheRepo{
 				.addValue("codCoche", codCoche);
 		return nameJdbc.query(INTERVENCION_QUERY, params, new BeanPropertyRowMapper<>(IntervencionOutputMinDto.class));
 	}
-	
+
 }
