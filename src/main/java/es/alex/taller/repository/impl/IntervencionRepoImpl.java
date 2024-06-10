@@ -55,5 +55,15 @@ public class IntervencionRepoImpl implements IIntervencionRepo{
 	    return kh.getKey().intValue();
 	}
 
+	@Override
+	public IntervencionOutputDto codCocheIntervencion(Integer codIntervencion) {
+		String COD_COCHE_INTERVENCION_QUERY = "SELECT i.codCoche as CodCoche "
+											+ "FROM intervencion i "
+											+ "WHERE i.id = :codIntervencion";
+		MapSqlParameterSource params = new MapSqlParameterSource()
+	            .addValue("codIntervencion", codIntervencion);
+		return nameJdbc.queryForObject(COD_COCHE_INTERVENCION_QUERY, params, new BeanPropertyRowMapper<>(IntervencionOutputDto.class));
+	}
+
 
 }

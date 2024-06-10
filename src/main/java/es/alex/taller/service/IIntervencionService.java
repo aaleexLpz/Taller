@@ -13,4 +13,5 @@ public interface IIntervencionService {
 	
 	Integer insertarIntervenciones(IntervencionOutputDto intervenciones);
 	
+	IntervencionOutputDto codCocheCodIntervencion(Integer codIntervencion);
 }

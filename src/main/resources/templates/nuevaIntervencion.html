@@ -161,9 +161,9 @@
 			                    <input type="number" class="form-control" id="precio" name="precio" th:field="*{precio}" placeholder="Introduce el precio">
 			                </div>
 			                <div class="form-group">
-			                    <label for="codCoche">Código del coche</label>
-			                    <input type="number" class="form-control" id="codCoche" name="codCoche" th:field="*{codCoche}" placeholder="Introduce el código del coche">
-			                </div>
+	                            <label for="codCoche">Código del coche</label>
+	                            <input type="text" class="form-control" id="codCoche" th:value="${intervenciones.codCoche}" th:field="*{codCoche}" readonly>
+                        	</div>
 			                <button type="submit" class="btn btn-primary">Guardar</button>
 			                <div class="form-group">
 		            			<label type="hidden" for="id"></label>

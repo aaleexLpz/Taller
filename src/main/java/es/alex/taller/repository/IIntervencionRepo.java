@@ -15,4 +15,6 @@ public interface IIntervencionRepo {
 	IntervencionOutputDto detallesIntervencion(Integer codIntervencion);
 	
 	Integer insertarIntervencion(IntervencionOutputDto intervencion);
+	
+	IntervencionOutputDto codCocheIntervencion(Integer codIntervencion);
 }

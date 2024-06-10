@@ -132,9 +132,10 @@ public class PageController {
 		return "editarCoche";
 	}
 	
-	@GetMapping("/nueva-intervencion")
-	public String mostrarNuevaIntervencion(Model model) {
-		model.addAttribute("intervenciones", new IntervencionOutputDto());
+	@GetMapping("/nueva-intervencion/{id}")
+	public String mostrarNuevaIntervencion(@PathVariable Integer id, Model model) {
+		IntervencionOutputDto intervencion = intervencionService.codCocheCodIntervencion(id);
+		model.addAttribute("intervenciones", intervencion);
 		return "nuevaIntervencion";
 	}
 	
