@@ -7,7 +7,6 @@ public class IntervencionOutputMinDto {
 
 	private Integer id;
 	private String resumen;
-	private String texto;
 	private String precio;
 	
 }

@@ -100,9 +100,19 @@ public class PageController {
 	@GetMapping("/coche/{id}")
 	public String verDetallesCoche(@PathVariable Integer id, Model model) {
 		CocheOutputDto coches = cocheService.infoCocheId(id);
-		List<IntervencionOutputMinDto> intervenciones = cocheService.listadoIntervencionPorCoche(id);
+		if (coches == null) {
+	        model.addAttribute("error", "No se encontraron detalles para el coche.");
+	        return "editarCliente";
+	    }
+		
+		List<IntervencionOutputMinDto> intervenciones = intervencionService.listadoIntervencionPorCoche(id);
 		model.addAttribute("coches", coches);
-		model.addAttribute("intervenciones", intervenciones);
+		
+		if (intervenciones.isEmpty()) {
+	        model.addAttribute("mensaje", "No hay intervenciones para este coche.");
+	    } else {
+	        model.addAttribute("intervenciones", intervenciones);
+	    }
 		return "editarCoche";
 	}
 	
@@ -119,19 +129,29 @@ public class PageController {
 		cocheService.insertarCoches(coche);
 		model.addAttribute("coches", coche);
 		model.addAttribute("clientes", cliente);
-		return "editarCliente";
+		return "editarCoche";
+	}
+	
+	@GetMapping("/nueva-intervencion")
+	public String mostrarNuevaIntervencion(Model model) {
+		model.addAttribute("intervenciones", new IntervencionOutputDto());
+		return "nuevaIntervencion";
 	}
 	
 	@GetMapping("/intervencion/{id}")
 	public String verDetallesIntervencion(@PathVariable Integer id, Model model) {
-	    List<IntervencionOutputDto> intervenciones = intervencionService.infoIntervencionId(id);
-	    if (!intervenciones.isEmpty()) {
-	        IntervencionOutputDto intervencion = intervenciones.get(0);
-	        model.addAttribute("intervencion", intervencion);
-	    }
+	    IntervencionOutputDto intervencion = intervencionService.infoIntervencionCodIntervencion(id);
+        model.addAttribute("intervencion", intervencion);
 	    return "verIntervencion";
 	}
 
+	@PostMapping("/guardar-intervencion-nueva")
+	public String guardarIntervencionNueva(@ModelAttribute IntervencionOutputDto intervencion, ClienteOutputDto cliente, Model model) {
+		Integer codIntervencion = intervencionService.insertarIntervenciones(intervencion);
+		IntervencionOutputDto intervencionCreada = intervencionService.infoIntervencionCodIntervencion(codIntervencion);
+        model.addAttribute("intervencion", intervencionCreada);
+	    return "verIntervencion";
+	}
 
 	
 }

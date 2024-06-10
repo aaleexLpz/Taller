@@ -14,7 +14,5 @@ public interface ICocheService {
 	
 	void actualizarCoches(CocheOutputDto coches);
 	
-	List<IntervencionOutputMinDto> listadoIntervencionPorCoche(Integer codCoche);
-	
 	void insertarCoches(CocheOutputDto coches);
 }

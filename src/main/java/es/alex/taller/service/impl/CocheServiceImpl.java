@@ -17,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 public class CocheServiceImpl implements ICocheService {
 	
 	private final ICocheRepo cocheRepo;
-	private final IIntervencionRepo intervencionRepo;
 	
 	@Override
 	public CocheOutputDto infoCocheId(Integer codCliente) {
@@ -35,11 +34,6 @@ public class CocheServiceImpl implements ICocheService {
 	@Override
 	public List<CocheOutputMinDto> listadoCochesPorCliente(Integer codCliente) {
 		return cocheRepo.listadoCochesPorCliente(codCliente);
-	}
-
-	@Override
-	public List<IntervencionOutputMinDto> listadoIntervencionPorCoche(Integer codCoche) {
-		return intervencionRepo.listaMinIntervencion(codCoche);
 	}
 
 	@Override

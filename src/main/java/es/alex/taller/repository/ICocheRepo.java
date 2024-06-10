@@ -14,7 +14,7 @@ public interface ICocheRepo {
 
 	List<CocheOutputMinDto> listadoCochesPorCliente(Integer codCliente);
 	
-	CocheOutputDto detallesCoche(Integer codCliente);
+	CocheOutputDto detallesCoche(Integer codCoche);
 	
 	int actualizarCoche(@ModelAttribute CocheOutputDto coches);
 	
