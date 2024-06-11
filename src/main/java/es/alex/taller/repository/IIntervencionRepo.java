@@ -17,4 +17,6 @@ public interface IIntervencionRepo {
 	Integer insertarIntervencion(IntervencionOutputDto intervencion);
 	
 	IntervencionOutputDto codCocheIntervencion(Integer codIntervencion);
+	
+	void eliminarIntervencion(Integer codIntervencion);
 }

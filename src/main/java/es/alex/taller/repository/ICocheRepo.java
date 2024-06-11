@@ -20,5 +20,9 @@ public interface ICocheRepo {
 	
 	List<IntervencionOutputMinDto> listadoIntervencionPorCoche(Integer codCoche);
 	
-	int insertarCoche(CocheOutputDto coches);
+	Integer insertarCoche(CocheOutputDto coches);
+	
+	void eliminarCoche(Integer codCoche);
+	
+	Integer obtenerCodClientePorCoche(Integer codCoche);
 }

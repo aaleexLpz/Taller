@@ -6,6 +6,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -56,7 +58,7 @@ public class CocheRepoImpl implements ICocheRepo{
     }
 
 	@Override
-	public int insertarCoche(CocheOutputDto coche) {
+	public Integer insertarCoche(CocheOutputDto coche) {
 		String COCHE_INSERT = "INSERT INTO coche (marca, modelo, color, matricula, codCliente) VALUES (:marca, :modelo, :color, :matricula, :codCliente)";
 		MapSqlParameterSource params = new MapSqlParameterSource()
 				.addValue("marca", coche.getMarca())
@@ -64,7 +66,29 @@ public class CocheRepoImpl implements ICocheRepo{
                 .addValue("color", coche.getColor())
                 .addValue("matricula", coche.getMatricula())
                 .addValue("codCliente", coche.getCodCliente());
-		return nameJdbc.update(COCHE_INSERT, params);
+		KeyHolder kh = new GeneratedKeyHolder();
+	    nameJdbc.update(COCHE_INSERT, params, kh);
+	    return kh.getKey().intValue();
+	}
+	
+	@Override
+	public void eliminarCoche(Integer codCoche) {
+		String INTERVENCION_DELETE = "DELETE FROM intervencion WHERE codCoche = :codCoche";
+		String COCHE_DELETE = "DELETE FROM coche WHERE id = :codCoche";
+		MapSqlParameterSource params = new MapSqlParameterSource()
+	            .addValue("codCoche", codCoche);
+		nameJdbc.update(INTERVENCION_DELETE, params);
+		nameJdbc.update(COCHE_DELETE, params);
+	}
+	
+	@Override
+	public Integer obtenerCodClientePorCoche(Integer codCoche) {
+		String COD_CLIENTE_QUERY = "SELECT c.codCliente "
+								 + "FROM coche c "
+								 + "WHERE c.id = :codCoche";
+		MapSqlParameterSource params = new MapSqlParameterSource()
+	            .addValue("codCoche", codCoche);
+		return nameJdbc.queryForObject(COD_CLIENTE_QUERY, params, Integer.class);
 	}
 	
 	@Override

@@ -11,7 +11,9 @@ public interface IIntervencionService {
 	
 	List<IntervencionOutputMinDto> listadoIntervencionPorCoche(Integer codCoche);
 	
-	Integer insertarIntervenciones(IntervencionOutputDto intervenciones);
+	Integer insertarIntervencion(IntervencionOutputDto intervenciones);
 	
 	IntervencionOutputDto codCocheCodIntervencion(Integer codIntervencion);
+	
+	void eliminarIntervencion(Integer codIntervencion);
 }

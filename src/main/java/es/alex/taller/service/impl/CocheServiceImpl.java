@@ -27,7 +27,7 @@ public class CocheServiceImpl implements ICocheService {
 	}
 
 	@Override
-	public void actualizarCoches(CocheOutputDto coches) {
+	public void actualizarCoche(CocheOutputDto coches) {
 		cocheRepo.actualizarCoche(coches);
 	}
 
@@ -37,8 +37,20 @@ public class CocheServiceImpl implements ICocheService {
 	}
 
 	@Override
-	public void insertarCoches(CocheOutputDto coches) {
-		cocheRepo.insertarCoche(coches);
+	public Integer insertarCoche(CocheOutputDto coches) {
+		return cocheRepo.insertarCoche(coches);
+	}
+
+	@Override
+	public Integer eliminarCoche(Integer codCoche) {
+		Integer codCliente = cocheRepo.obtenerCodClientePorCoche(codCoche);
+		cocheRepo.eliminarCoche(codCoche);
+		return codCliente;
+	}
+
+	@Override
+	public Integer obtenerCodClientePorCoche(Integer codCoche) {
+		return cocheRepo.obtenerCodClientePorCoche(codCoche);
 	}
 	
 }

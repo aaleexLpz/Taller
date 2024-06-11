@@ -27,13 +27,18 @@ public class IntervencionServiceImpl implements IIntervencionService{
 	}
 	
 	@Override
-	public Integer insertarIntervenciones(IntervencionOutputDto intervenciones) {
+	public Integer insertarIntervencion(IntervencionOutputDto intervenciones) {
 		return intervencionRepo.insertarIntervencion(intervenciones);
 	}
 
 	@Override
 	public IntervencionOutputDto codCocheCodIntervencion(Integer codIntervencion) {
 		return intervencionRepo.codCocheIntervencion(codIntervencion);
+	}
+
+	@Override
+	public void eliminarIntervencion(Integer codIntervencion) {
+		intervencionRepo.eliminarIntervencion(codIntervencion);
 	}
 
 }

@@ -3,6 +3,7 @@ package es.alex.taller.repository.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -56,13 +57,25 @@ public class IntervencionRepoImpl implements IIntervencionRepo{
 	}
 
 	@Override
+	public void eliminarIntervencion(Integer codIntervencion) {
+		String INTERVENCION_DELETE = "DELETE FROM intervencion WHERE id = :codIntervencion";
+		MapSqlParameterSource params = new MapSqlParameterSource()
+	            .addValue("codIntervencion", codIntervencion);
+		nameJdbc.update(INTERVENCION_DELETE, params);
+	}
+	
+	@Override
 	public IntervencionOutputDto codCocheIntervencion(Integer codIntervencion) {
 		String COD_COCHE_INTERVENCION_QUERY = "SELECT i.codCoche as CodCoche "
 											+ "FROM intervencion i "
 											+ "WHERE i.id = :codIntervencion";
 		MapSqlParameterSource params = new MapSqlParameterSource()
 	            .addValue("codIntervencion", codIntervencion);
-		return nameJdbc.queryForObject(COD_COCHE_INTERVENCION_QUERY, params, new BeanPropertyRowMapper<>(IntervencionOutputDto.class));
+		try {
+	        return nameJdbc.queryForObject(COD_COCHE_INTERVENCION_QUERY, params, new BeanPropertyRowMapper<>(IntervencionOutputDto.class));
+	    } catch (EmptyResultDataAccessException e) {
+	        return null;
+	    }
 	}
 
 

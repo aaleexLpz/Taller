@@ -161,9 +161,9 @@
 			                    <input type="text" class="form-control" id="matricula" name="matricula" th:field="*{matricula}" placeholder="Introduce la matrícula">
 			                </div>
 			                <div class="form-group">
-			                    <label for="codCliente">Código del cliente</label>
-			                    <input type="number" class="form-control" id="codCliente" name="codCliente" th:field="*{codCliente}" placeholder="Introduce el código del cliente">
-			                </div>
+	                            <label for="codCliente">Código del cliente</label>
+	                            <input type="text" class="form-control" id="codCliente" th:value="${coches.codCliente}" th:field="*{codCliente}" readonly>
+                        	</div>
 			                <button type="submit" class="btn btn-primary">Guardar</button>
 			                <div class="form-group">
 		            			<label type="hidden" for="id"></label>

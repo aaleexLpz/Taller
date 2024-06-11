@@ -143,7 +143,7 @@
 			    <div class="card">
 			        <div class="card-body">
 			            <h2>Datos del Cliente</h2>
-			            <form id="clienteForm" action="#" th:action="@{/guardar-cliente}" th:object="${clientes}" method="post">
+			            <form id="clienteForm" th:action="@{/guardar-cliente}" th:object="${clientes}" method="post">
 			                <div class="form-group">
 			                    <label for="nombre">Nombre</label>
 			                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${clientes.nombre}" th:field="*{nombre}" placeholder="Introduce tu nombre">
@@ -170,6 +170,10 @@
 			            	    <input type="hidden" id="id" class="form-control" name="id" th:value="${clientes.id}" th:field="*{id}" placeholder="Introduce el id">
 		            	    </div>
 			            </form>
+			            <form id="formEliminarCliente" th:action="@{'/eliminar-cliente/' + ${clientes.id}}" method="post">
+						    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este cliente?')">Eliminar</button>
+						    <input type="hidden" name="_method" value="POST">
+						</form>
 			        </div>
 			    </div>
 			</div>
@@ -191,7 +195,7 @@
 							    </tr>
 							</tbody>
 			            </table>
-			            <a class="btn btn-success" th:href="@{/nuevo-coche}">Agregar Coche</a>
+			            <a class="btn btn-success" th:href="@{'/nuevo-coche/' + ${clientes.id}}">Agregar Coche</a>
 			        </div>
 			    </div>
 			</div>

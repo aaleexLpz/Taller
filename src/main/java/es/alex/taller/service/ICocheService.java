@@ -12,7 +12,11 @@ public interface ICocheService {
 	
 	List<CocheOutputMinDto> listadoCochesPorCliente(Integer codCliente);
 	
-	void actualizarCoches(CocheOutputDto coches);
+	void actualizarCoche(CocheOutputDto coches);
 	
-	void insertarCoches(CocheOutputDto coches);
+	Integer insertarCoche(CocheOutputDto coches);
+	
+	Integer eliminarCoche(Integer codCoche);
+	
+	Integer obtenerCodClientePorCoche(Integer codCoche);
 }

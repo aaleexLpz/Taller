@@ -27,21 +27,46 @@ public class ClienteServiceImpl implements IClienteService{
 
 	@Override
 	public ClienteOutputDto infoClienteId(Integer codCliente) {
-		ClienteOutputDto clienteOutput = clienteRepo.infoClienteId(codCliente);
-		List<CocheOutputMinDto> coches = cocheRepo.listadoCochesPorCliente(codCliente);
-		clienteOutput.setCoches(coches);
-		return clienteOutput;
+	    // Obtener el cliente desde el repositorio
+	    ClienteOutputDto clienteOutput = clienteRepo.infoClienteId(codCliente);
+	    
+	    // Si clienteOutput es null, inicializarlo como un nuevo objeto ClienteOutputDto
+	    if (clienteOutput == null) {
+	        clienteOutput = new ClienteOutputDto();
+	    }
+	    
+	    // Obtener la lista de coches por cliente
+	    List<CocheOutputMinDto> coches = cocheRepo.listadoCochesPorCliente(codCliente);
+	    
+	    // Establecer la lista de coches en el cliente
+	    clienteOutput.setCoches(coches);
+	    
+	    // Devolver el cliente con la lista de coches
+	    return clienteOutput;
 	}
 
+
+
 	@Override
-	public void actualizarClientes(ClienteOutputDto clientes) {
+	public void actualizarCliente(ClienteOutputDto clientes) {
 		clienteRepo.actualizarCliente(clientes); 
 	}
 
 	@Override
-	public void insertarClientes(ClienteOutputDto clientes) {
-		clienteRepo.insertarCliente(clientes);
+	public Integer insertarCliente(ClienteOutputDto clientes) {
+		return clienteRepo.insertarCliente(clientes);
 		
+	}
+
+	@Override
+	public void eliminarCliente(Integer idCliente) {
+		clienteRepo.eliminarCliente(idCliente);
+		
+	}
+
+	@Override
+	public List<ClienteOutputDto> listadoClientesCompleto() {
+		return clienteRepo.listadoClientesCompleto();
 	}
 
 }

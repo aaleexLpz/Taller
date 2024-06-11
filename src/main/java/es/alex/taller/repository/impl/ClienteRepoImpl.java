@@ -6,6 +6,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -28,6 +30,13 @@ public class ClienteRepoImpl implements IClienteRepo {
 		return nameJdbc.query(CLIENTES_QUERY, new BeanPropertyRowMapper<>(ClienteOutputMinDto.class));
 	}
 
+	@Override
+	public List<ClienteOutputDto> listadoClientesCompleto() {
+		String CLIENTES_QUERY = "SELECT c.id as id, c.nombre as nombre, c.apellido1 as apellido1, c.apellido2 as apellido2, c.telefono as telefono, c.dni as dni "
+						  	  + "FROM cliente c";
+		return nameJdbc.query(CLIENTES_QUERY, new BeanPropertyRowMapper<>(ClienteOutputDto.class));
+	}
+	
 	@Override
 	public ClienteOutputDto infoClienteId(Integer codCliente) {
 		String CLIENTE_QUERY = "SELECT c.id as id, c.nombre as nombre, c.apellido1 as apellido1, c.apellido2 as apellido2, c.telefono as telefono, c.dni as dni "
@@ -57,15 +66,30 @@ public class ClienteRepoImpl implements IClienteRepo {
     }
 
 	@Override
-	public int insertarCliente(ClienteOutputDto cliente) {
-		String CLIENTE_INSERT = "INSERT INTO cliente (nombre, apellido1, apellido2, telefono, dni) VALUES (:nombre, :apellido1, :apellido2, :telefono, :dni)";
+	public Integer insertarCliente(ClienteOutputDto cliente) {
+		String CLIENTE_INSERT = "INSERT INTO cliente (id, nombre, apellido1, apellido2, telefono, dni) VALUES (:id ,:nombre, :apellido1, :apellido2, :telefono, :dni)";
 		MapSqlParameterSource params = new MapSqlParameterSource()
 				.addValue("nombre", cliente.getNombre())
                 .addValue("apellido1", cliente.getApellido1())
                 .addValue("apellido2", cliente.getApellido2())
                 .addValue("telefono", cliente.getTelefono())
-                .addValue("dni", cliente.getDni());
-		return nameJdbc.update(CLIENTE_INSERT, params);
+                .addValue("dni", cliente.getDni())
+				.addValue("id", cliente.getId());
+		KeyHolder kh = new GeneratedKeyHolder();
+	    nameJdbc.update(CLIENTE_INSERT, params, kh);
+	    return kh.getKey().intValue();
+	}
+
+	@Override
+	public void eliminarCliente(Integer idCliente) {
+		String INTERVENCION_DELETE = "DELETE FROM intervencion WHERE codCoche IN (SELECT id FROM coche WHERE codCliente = :idCliente)";
+		String COCHE_DELETE = "DELETE FROM coche WHERE codCliente = :idCliente";
+		String CLIENTE_DELETE = "DELETE FROM cliente WHERE id = :idCliente";
+		MapSqlParameterSource params = new MapSqlParameterSource()
+				.addValue("idCliente", idCliente);
+		nameJdbc.update(INTERVENCION_DELETE, params);
+		nameJdbc.update(COCHE_DELETE, params);
+		nameJdbc.update(CLIENTE_DELETE, params);
 	}
 
 }

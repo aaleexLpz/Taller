@@ -14,10 +14,14 @@ public interface IClienteRepo {
 
 	List<ClienteOutputMinDto> listadoClientes();
 	
+	List<ClienteOutputDto> listadoClientesCompleto();
+	
 	ClienteOutputDto infoClienteId(Integer codCliente);
 	
 	public int actualizarCliente(ClienteOutputDto clientes);
 	
-	public int insertarCliente(ClienteOutputDto cliente);
+	Integer insertarCliente(ClienteOutputDto cliente);
+	
+	void eliminarCliente(Integer idCliente);
 	
 }

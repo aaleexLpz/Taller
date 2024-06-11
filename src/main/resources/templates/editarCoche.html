@@ -166,6 +166,10 @@
 			            	    <input type="hidden" id="id" class="form-control" name="id" th:value="${coches.id}" th:field="*{id}" placeholder="Introduce el id">
 		            	    </div>
 			            </form>
+			            <form id="formEliminarCoche" th:action="@{'/eliminar-coche/' + ${coches.id}}" method="post">
+						    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este coche?')">Eliminar</button>
+						    <input type="hidden" name="_method" value="POST">
+						</form>
 			        </div>
 			    </div>
 			</div>

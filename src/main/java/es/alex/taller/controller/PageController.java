@@ -16,7 +16,6 @@ import es.alex.taller.dto.coche.CocheOutputDto;
 import es.alex.taller.dto.coche.CocheOutputMinDto;
 import es.alex.taller.dto.intervencion.IntervencionOutputDto;
 import es.alex.taller.dto.intervencion.IntervencionOutputMinDto;
-import es.alex.taller.dto.intervencion.IntervencionesContainer;
 import es.alex.taller.service.IClienteService;
 import es.alex.taller.service.ICocheService;
 import es.alex.taller.service.IIntervencionService;
@@ -78,7 +77,7 @@ public class PageController {
 	
 	@PostMapping("/guardar-cliente")
 	public String guardarCliente(@ModelAttribute ClienteOutputDto cliente, Model model) {
-		clienteService.actualizarClientes(cliente);
+		clienteService.actualizarCliente(cliente);
 		ClienteOutputDto clienteAct = clienteService.infoClienteId(cliente.getId());
         model.addAttribute("clientes", clienteAct);
         return "editarCliente";
@@ -86,16 +85,28 @@ public class PageController {
 	
 	@PostMapping("/guardar-cliente-nuevo")
 	public String guardarClienteNuevo(@ModelAttribute ClienteOutputDto cliente, Model model) {
-		clienteService.insertarClientes(cliente);
-		model.addAttribute("clientes", cliente);
+		Integer codCliente = clienteService.insertarCliente(cliente);
+		ClienteOutputDto clienteAct = clienteService.infoClienteId(codCliente);
+		model.addAttribute("clientes", clienteAct);
 		return "editarCliente";
 	}
 	
-	@GetMapping("/nuevo-coche")
-	public String mostrarNuevoCoche(Model model) {
-		model.addAttribute("coches", new CocheOutputDto());
-        return "nuevoCoche";
-    }
+	@PostMapping("/eliminar-cliente/{id}")
+	public String eliminarCliente(@PathVariable Integer id, RedirectAttributes redirectAttributes, Model model) {
+		clienteService.eliminarCliente(id);
+		redirectAttributes.addFlashAttribute("mensaje", "Cliente eliminado con éxito");
+		List<ClienteOutputMinDto> clientes = clienteService.listadoClientes();
+		model.addAttribute("clientes", clientes);
+		return "redirect:/clientes-page";
+	}
+	
+	@GetMapping("/nuevo-coche/{codCliente}")
+	public String mostrarNuevoCoche(@PathVariable Integer codCliente, Model model) {
+	    CocheOutputDto coche = new CocheOutputDto();
+	    coche.setCodCliente(codCliente);
+	    model.addAttribute("coches", coche);
+	    return "nuevoCoche";
+	}
 	
 	@GetMapping("/coche/{id}")
 	public String verDetallesCoche(@PathVariable Integer id, Model model) {
@@ -118,7 +129,7 @@ public class PageController {
 	
 	@PostMapping("/guardar-coche")
 	public String guardarCoche(@ModelAttribute CocheOutputDto coches, Model model) {
-		cocheService.actualizarCoches(coches);
+		cocheService.actualizarCoche(coches);
 		CocheOutputDto cocheAct = cocheService.infoCocheId(coches.getId());
         model.addAttribute("coches", cocheAct);
         return "editarCoche";
@@ -126,19 +137,36 @@ public class PageController {
 	
 	@PostMapping("/guardar-coche-nuevo")
 	public String guardarCocheNuevo(@ModelAttribute CocheOutputDto coche, ClienteOutputDto cliente, Model model) {
-		cocheService.insertarCoches(coche);
-		model.addAttribute("coches", coche);
+		Integer codCoche = cocheService.insertarCoche(coche);
+		CocheOutputDto cocheAct = cocheService.infoCocheId(codCoche);
+        model.addAttribute("coches", cocheAct);
 		model.addAttribute("clientes", cliente);
 		return "editarCoche";
 	}
 	
-	@GetMapping("/nueva-intervencion/{id}")
-	public String mostrarNuevaIntervencion(@PathVariable Integer id, Model model) {
-		IntervencionOutputDto intervencion = intervencionService.codCocheCodIntervencion(id);
-		model.addAttribute("intervenciones", intervencion);
-		return "nuevaIntervencion";
+	@PostMapping("/eliminar-coche/{id}")
+	public String eliminarCoche(@PathVariable Integer id, RedirectAttributes redirectAttributes, Model model) {
+		Integer codCliente = cocheService.eliminarCoche(id);
+		redirectAttributes.addFlashAttribute("mensaje", "Coche eliminado con éxito");
+		ClienteOutputDto cliente = clienteService.infoClienteId(codCliente);
+		model.addAttribute("clientes", cliente);
+		return "redirect:/cliente/" + cliente.getId();
 	}
 	
+	@GetMapping("/nueva-intervencion/{id}")
+	public String mostrarNuevaIntervencion(@PathVariable Integer id, Model model) {
+	    IntervencionOutputDto intervencion = intervencionService.codCocheCodIntervencion(id);
+
+	    if (intervencion == null) {
+	        intervencion = new IntervencionOutputDto();
+	        intervencion.setCodCoche(id);
+	        model.addAttribute("intervenciones", intervencion);
+	    }
+	    
+	    model.addAttribute("intervenciones", intervencion);
+	    return "nuevaIntervencion";
+	}
+
 	@GetMapping("/intervencion/{id}")
 	public String verDetallesIntervencion(@PathVariable Integer id, Model model) {
 	    IntervencionOutputDto intervencion = intervencionService.infoIntervencionCodIntervencion(id);
@@ -148,11 +176,20 @@ public class PageController {
 
 	@PostMapping("/guardar-intervencion-nueva")
 	public String guardarIntervencionNueva(@ModelAttribute IntervencionOutputDto intervencion, ClienteOutputDto cliente, Model model) {
-		Integer codIntervencion = intervencionService.insertarIntervenciones(intervencion);
+		Integer codIntervencion = intervencionService.insertarIntervencion(intervencion);
 		IntervencionOutputDto intervencionCreada = intervencionService.infoIntervencionCodIntervencion(codIntervencion);
         model.addAttribute("intervencion", intervencionCreada);
 	    return "verIntervencion";
 	}
 
-	
+	@PostMapping("/eliminar-intervencion/{id}")
+	public String eliminarIntervencion(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+	    IntervencionOutputDto intervencion = intervencionService.infoIntervencionCodIntervencion(id);
+	    Integer codCoche = intervencion.getCodCoche();
+	    intervencionService.eliminarIntervencion(id);
+	    redirectAttributes.addFlashAttribute("mensaje", "Intervención eliminada con éxito");
+	    return "redirect:/coche/" + codCoche;
+	}
+
+
 }

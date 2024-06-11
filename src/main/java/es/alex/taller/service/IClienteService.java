@@ -9,9 +9,13 @@ public interface IClienteService {
 
 	List<ClienteOutputMinDto> listadoClientes();
 	
+	List<ClienteOutputDto> listadoClientesCompleto();
+	
 	ClienteOutputDto infoClienteId(Integer codCliente);
 	
-	public void actualizarClientes(ClienteOutputDto clientes);
+	void actualizarCliente(ClienteOutputDto clientes);
 	
-	public void insertarClientes(ClienteOutputDto clientes);
+	Integer insertarCliente(ClienteOutputDto clientes);
+	
+	void eliminarCliente(Integer idCliente);
 }
