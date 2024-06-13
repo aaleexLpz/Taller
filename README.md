@@ -1,13 +1,15 @@
 # Taller
 ## Descripción
 
-Este proyecto es un sistema de gestión para un taller de automóviles, desarrollado con **Spring Boot** y **Thymeleaf**. Permite gestionar clientes y sus coches, ofreciendo funcionalidades como agregar, modificar, eliminar y listar clientes y coches.
+Este proyecto es un sistema de gestión para un taller de automóviles, desarrollado con **Spring Boot** y **Thymeleaf**. Permite gestionar clientes, sus coches, y las intervenciones realizadas en los mismos, ofreciendo funcionalidades como agregar, modificar, eliminar y listar clientes, coches e intervenciones. Aunque en el caso de las intervenciones, no se permite modificarlas, ya que, por lógica de negocio se cree que es prescindible.
 
 ## Características
 
 - Gestión de clientes: agregar, modificar, eliminar y listar clientes.
 - Gestión de coches: agregar, modificar, eliminar y listar coches.
+- Gestión de intervenciones: agregar, eliminar y listar intervenciones.
 - Asociar coches a clientes.
+- Asociar intervenciones a coches.
 - Interfaz web para la administración del sistema.
 
 ## Tecnologías Utilizadas
